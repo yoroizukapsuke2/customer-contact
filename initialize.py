@@ -119,6 +119,7 @@ def initialize_agent_executor():
     st.session_state.customer_doc_chain = utils.create_rag_chain(ct.DB_CUSTOMER_PATH)
     st.session_state.service_doc_chain = utils.create_rag_chain(ct.DB_SERVICE_PATH)
     st.session_state.company_doc_chain = utils.create_rag_chain(ct.DB_COMPANY_PATH)
+    st.session_state.recruit_doc_chain = utils.create_rag_chain(ct.DB_RECRUIT_PATH)
     st.session_state.rag_chain = utils.create_rag_chain(ct.DB_ALL_PATH)
 
     # Web検索用のToolを設定するためのオブジェクトを用意
@@ -142,6 +143,12 @@ def initialize_agent_executor():
             name=ct.SEARCH_CUSTOMER_COMMUNICATION_INFO_TOOL_NAME,
             func=utils.run_customer_doc_chain,
             description=ct.SEARCH_CUSTOMER_COMMUNICATION_INFO_TOOL_DESCRIPTION
+        ),
+        # 採用に関するデータ検索用のTool
+        Tool(
+            name=ct.SEARCH_RECRUIT_INFO_TOOL_NAME,
+            func=utils.run_recruit_doc_chain,
+            description=ct.SEARCH_RECRUIT_INFO_TOOL_DESCRIPTION
         ),
         # Web検索用のTool
         Tool(
